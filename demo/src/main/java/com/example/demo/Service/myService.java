@@ -56,13 +56,7 @@ public class myService {
 	    }
 
 
-	public String login(String name,String password){
-		if(!)
-		
-		
-		
-		return "Login success";
-	}
+	
 	 
 	 
 }
