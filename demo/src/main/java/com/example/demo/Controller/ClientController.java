@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,4 +30,28 @@ public class ClientController {
         clientService.deleteClient(clientId);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{clientId}")
+    public ResponseEntity<ClientDetails> updateClient(@PathVariable long clientId, @RequestBody ClientDetails updatedClient) {
+        ClientDetails client = clientService.updateClient(clientId, updatedClient);
+        return ResponseEntity.ok(client);
+    }
+
+      @GetMapping
+      public List<ClientDetails> getAllClients() {
+          return clientService.getAllClients();
+      }
+
+      
+    @GetMapping("/{clientId}")
+    public ResponseEntity<ClientDetails> getClientById(@PathVariable Long clientId) {
+        ClientDetails trainer = clientService.getClientById(clientId);
+        if (trainer != null) {
+            return new ResponseEntity<>(trainer, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
 }

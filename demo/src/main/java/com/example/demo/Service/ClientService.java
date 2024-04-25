@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,36 @@ public class ClientService {
 
     public void deleteClient(long clientId) {
         clientRepository.deleteById(clientId);
+    }
+
+
+    public List<ClientDetails> getAllClients() {
+        return clientRepository.findAll();
+    }
+
+    public ClientDetails getClientById(Long clientId) {
+        Optional<ClientDetails> optionalClient = clientRepository.findById(clientId);
+        return optionalClient.orElse(null);
+    }
+
+    public ClientDetails updateClient(Long clientId, ClientDetails clientDetails) {
+        Optional<ClientDetails> optionalClient = clientRepository.findById(clientId);
+        if (optionalClient.isPresent()) {
+            ClientDetails existingClient = optionalClient.get();
+            // Update existing trainer with new details
+            existingClient.setClientName(clientDetails.getClientName());
+            existingClient.setJoiningDate(clientDetails.getJoiningDate());
+            existingClient.setEndingDate(clientDetails.getEndingDate());
+            existingClient.setPackageType(clientDetails.getPackageType());
+            existingClient.setTrainer(clientDetails.getTrainer());
+            existingClient.setTrainerName(clientDetails.getTrainerName());
+        
+            // Save and return updated trainer
+            return clientRepository.save(existingClient);
+        } else {
+            // Trainer with the given ID not found
+            return null;
+        }
     }
 
 }
