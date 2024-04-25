@@ -5,12 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.Model.Details;
+import com.example.demo.Model.TrainerDetails;
 
 @Repository
-public interface repo extends JpaRepository<Details,Integer> {
+public interface TrainersRepository extends JpaRepository<TrainerDetails,Long> {
 
     
-    List<Details> findByName(String name);
-    List<Details> findByid(int id);
+   
 }
