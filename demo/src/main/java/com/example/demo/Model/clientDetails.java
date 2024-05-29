@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
@@ -8,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 
@@ -27,6 +30,10 @@ public class ClientDetails {
 	    @JoinColumn(name = "trainer_id")
 		@JsonIgnore
 	    private TrainerDetails trainer;
+	    
+	    @OneToMany(mappedBy = "client")
+	    @JsonIgnore
+	    private List<TrainingProgress> trainingProgress;
 	    
 	    
 		public ClientDetails() {
